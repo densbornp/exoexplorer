@@ -58,7 +58,7 @@ class PlanetListFragment : Fragment() {
         if (query.isNotEmpty()) {
             val apiConnector = APIConnector(requireActivity())
             executor.execute {
-                val result = apiConnector.getPlanetsByName(query)
+                val result = apiConnector.getPlanets(query)
 
                 handler.post {
                     val linearLayout = view.findViewById<LinearLayout>(R.id.planet_list)

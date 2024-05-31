@@ -19,6 +19,11 @@
     <string name="api_key_error_msg">There\'s currently no API key configured or the configured key is wrong. To set an API key, please go to the settings and click on API key.</string>
     <string name="btn_ok">OK</string>
 
+    <string name="string_type_error_title">Wrong input</string>
+    <string name="string_type_error_msg">The input must be a text, e.g. "Earth"</string>
+    <string name="double_type_error_title">Wrong input</string>
+    <string name="double_type_error_msg">The input must be a number, e.g. 2.0</string>
+
     <!-- Preferences -->
     <string name="preferences_section_connection">Connection settings</string>
     <string name="preferences_api_key_title">API Key (api-ninjas.com)</string>
@@ -29,6 +34,7 @@
     <string name="preferences_search_option">Search option</string>
     <string name="preferences_search_option_summary">Select the search option by which you want to discover planets</string>
     <string name="preferences_search_option_default_value">Name</string>
+    <string name="preferences_search_option_key">search_option</string>
     <array name="search_options">
         <item>Name</item>
         <item>Min mass</item>

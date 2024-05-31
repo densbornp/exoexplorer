@@ -21,7 +21,7 @@
         android:defaultValue="@string/preferences_search_option_default_value"
         android:entries="@array/search_options"
         android:entryValues="@array/search_options"
-        android:key="list_preference_1"
+        android:key="@string/preferences_search_option_key"
         android:title="@string/preferences_search_option"
         app:dialogTitle="@string/preferences_search_option_dialog_title"
         app:icon="@drawable/settings_choice"
