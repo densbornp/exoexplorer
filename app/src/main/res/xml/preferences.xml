@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <PreferenceCategory android:title="@string/preferences_section_connection">
+
+    </PreferenceCategory>
     <EditTextPreference
         android:defaultValue=""
         android:key="@string/preferences_api_key"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="API Key" />
+        android:title="@string/preferences_api_key_title"
+        app:dialogTitle="@string/preferences_api_key_dialog_title"
+        app:icon="@drawable/settings_api" />
+    <PreferenceCategory android:title="@string/preferences_section_configuration">
+
+    </PreferenceCategory>
+    <ListPreference
+        android:defaultValue="@string/preferences_search_option_default_value"
+        android:entries="@array/search_options"
+        android:entryValues="@array/search_options"
+        android:key="list_preference_1"
+        android:title="@string/preferences_search_option"
+        app:dialogTitle="@string/preferences_search_option_dialog_title"
+        app:icon="@drawable/settings_choice"
+        app:summary="@string/preferences_search_option_summary" />
 </PreferenceScreen>

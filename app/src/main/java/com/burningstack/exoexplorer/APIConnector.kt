@@ -1,6 +1,8 @@
 package com.burningstack.exoexplorer
 
+import android.app.Activity
 import android.content.Context
+import androidx.appcompat.app.AlertDialog
 import androidx.preference.PreferenceManager
 import com.burningstack.exoexplorer.model.Planet
 import com.google.gson.Gson
@@ -11,12 +13,13 @@ import okhttp3.Request
 import okhttp3.Response
 
 
-class APIConnector(context: Context) {
+class APIConnector(activity: Activity) {
 
     private val baseURL: String = "https://api.api-ninjas.com/v1/planets"
-    private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-    private val API_KEY: String = prefs.getString(context.getString(R.string.preferences_api_key), "").toString()
+    private val prefs = PreferenceManager.getDefaultSharedPreferences(activity.applicationContext)
+    private val API_KEY: String = prefs.getString(activity.getString(R.string.preferences_api_key), "").toString()
     private var client = OkHttpClient()
+    private var act = activity
 
     fun getPlanetsByName(name: String): ArrayList<Planet> {
         val params = "?name=$name"
@@ -53,9 +56,23 @@ class APIConnector(context: Context) {
 
         response.use { response ->
             if (!response.isSuccessful) {
-                throw Exception("Unexpected code $response")
+                showAPIKeyErrorDialog()
+                return JsonArray()
             }
             return JsonParser.parseString(response.body?.string().toString()).asJsonArray
+        }
+    }
+
+    private fun showAPIKeyErrorDialog() {
+        act.runOnUiThread {
+            val builder = AlertDialog.Builder(act)
+            builder.setIcon(R.drawable.dialog_error)
+            builder.setTitle(R.string.api_key_error_title)
+            builder.setMessage(R.string.api_key_error_msg)
+                .setPositiveButton(R.string.btn_ok) { dialog, id ->
+                    // Do nothing
+                }
+            builder.show()
         }
     }
 

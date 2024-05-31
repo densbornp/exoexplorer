@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">PlanetViewer</string>"
-    <string name="preferences_api_key">api_key</string>
     <string name="nav_discover">Discover</string>
     <string name="nav_profile">Profile</string>
     <string name="nav_settings">Settings</string>
@@ -11,4 +10,38 @@
     <string name="previous">Previous</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!-- Alert Dialog messages -->
+    <string name="api_key_error_title">API Key Error</string>
+    <string name="api_key_error_msg">There\'s currently no API key configured or the configured key is wrong. To set an API key, please go to the settings and click on API key.</string>
+    <string name="btn_ok">OK</string>
+
+    <!-- Preferences -->
+    <string name="preferences_section_connection">Connection settings</string>
+    <string name="preferences_api_key_title">API Key (api-ninjas.com)</string>
+    <string name="preferences_api_key_dialog_title">Your API Key</string>
+    <string name="preferences_api_key">api_key</string>
+    <string name="preferences_section_configuration">Configuration</string>
+    <string name="preferences_search_option_dialog_title">Search by</string>
+    <string name="preferences_search_option">Search option</string>
+    <string name="preferences_search_option_summary">Select the search option by which you want to discover planets</string>
+    <string name="preferences_search_option_default_value">Name</string>
+    <array name="search_options">
+        <item>Name</item>
+        <item>Min mass</item>
+        <item>Max mass</item>
+        <item>Min radius</item>
+        <item>Max radius</item>
+        <item>Min period</item>
+        <item>Max period</item>
+        <item>Min temperature</item>
+        <item>Max temperature</item>
+        <item>Min distance light year</item>
+        <item>Max distance light year</item>
+        <item>Min semi major axis</item>
+        <item>Max semi major axis</item>
+    </array>
 </resources>
