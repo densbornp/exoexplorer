@@ -6,6 +6,7 @@ import androidx.preference.PreferenceManager
 import com.burningstack.exoexplorer.model.Planet
 import com.google.gson.Gson
 import com.google.gson.JsonArray
+import com.google.gson.JsonElement
 import com.google.gson.JsonParser
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -60,7 +61,7 @@ class APIConnector(activity: Activity) {
         if (!result.isEmpty) {
             for (res in result) {
                 val planet = Gson().fromJson(res, Planet::class.java)
-                resultList.add(planet)
+                resultList.add(checkForNullValues(planet))
             }
         }
         return resultList
@@ -107,6 +108,34 @@ class APIConnector(activity: Activity) {
             "Max semi major axis" -> "max_semi_major_axis"
             else -> "name"
         }
+    }
+
+    private fun checkForNullValues(planet: Planet): Planet {
+        if (planet.mass.isNullOrEmpty()) {
+            planet.mass = "N.A"
+        }
+        if (planet.radius.isNullOrEmpty()) {
+            planet.radius = "N.A"
+        }
+        if (planet.period.isNullOrEmpty()) {
+            planet.period = "N.A"
+        }
+        if (planet.semiMajorAxis.isNullOrEmpty()) {
+            planet.semiMajorAxis = "N.A"
+        }
+        if (planet.temperature.isNullOrEmpty()) {
+            planet.temperature = "N.A"
+        }
+        if (planet.distanceLightYear.isNullOrEmpty()) {
+            planet.distanceLightYear = "N.A"
+        }
+        if (planet.hostStarMass.isNullOrEmpty()) {
+            planet.hostStarMass = "N.A"
+        }
+        if (planet.hostStarTemperature.isNullOrEmpty()) {
+            planet.hostStarTemperature = "N.A"
+        }
+        return planet
     }
 
     private fun showAPIKeyErrorDialog() {

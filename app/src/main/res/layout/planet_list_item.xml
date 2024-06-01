@@ -27,25 +27,138 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/planetImage"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_marginStart="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/img_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="30dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/navigation_profile" />
+                app:layout_constraintTop_toBottomOf="@+id/planetName"
+                app:srcCompat="@drawable/distance" />
+
+            <ImageView
+                android:id="@+id/img_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="125dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toEndOf="@+id/distance"
+                app:layout_constraintTop_toBottomOf="@+id/planetName"
+                app:srcCompat="@drawable/temperature" />
+
+            <TextView
+                android:id="@+id/item_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="1"
+                app:layout_constraintBottom_toBottomOf="@+id/img_temperature"
+                app:layout_constraintStart_toEndOf="@+id/img_temperature"
+                app:layout_constraintTop_toTopOf="@+id/img_temperature" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Avg. temperature (Kelvin)"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/img_temperature"
+                app:layout_constraintTop_toBottomOf="@+id/img_temperature" />
+
+            <ImageView
+                android:id="@+id/img_mass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_distance"
+                app:srcCompat="@drawable/mass" />
+
+            <TextView
+                android:id="@+id/item_mass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="1"
+                app:layout_constraintBottom_toBottomOf="@+id/img_mass"
+                app:layout_constraintStart_toEndOf="@+id/img_mass"
+                app:layout_constraintTop_toTopOf="@+id/img_mass" />
+
+            <TextView
+                android:id="@+id/mass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Mass (in Jupiters)"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/img_mass"
+                app:layout_constraintTop_toBottomOf="@+id/img_mass" />
+
+            <ImageView
+                android:id="@+id/img_radius"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="125dp"
+                android:layout_marginTop="50dp"
+                app:layout_constraintStart_toEndOf="@+id/mass"
+                app:layout_constraintTop_toBottomOf="@+id/img_temperature"
+                app:srcCompat="@drawable/radius" />
+
+            <TextView
+                android:id="@+id/item_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="1"
+                app:layout_constraintBottom_toBottomOf="@+id/img_distance"
+                app:layout_constraintStart_toEndOf="@+id/img_distance"
+                app:layout_constraintTop_toTopOf="@+id/img_distance" />
+
+            <TextView
+                android:id="@+id/item_radius"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="1"
+                app:layout_constraintBottom_toBottomOf="@+id/img_radius"
+                app:layout_constraintStart_toEndOf="@+id/img_radius"
+                app:layout_constraintTop_toTopOf="@+id/img_radius"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Distance in light years from earth"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/img_distance"
+                app:layout_constraintTop_toBottomOf="@+id/img_distance" />
+
+            <TextView
+                android:id="@+id/radius"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Radius (in Jupiters)"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/img_radius"
+                app:layout_constraintTop_toBottomOf="@+id/img_radius" />
 
             <TextView
                 android:id="@+id/planetName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.100000024" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
