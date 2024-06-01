@@ -3,24 +3,16 @@
     <string name="nav_discover">Discover</string>
     <string name="nav_profile">Profile</string>
     <string name="nav_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_splash_screen">SplashScreenActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!-- PlanetListFragment -->
+    <string name="no_data">No data</string>
+    <string name="no_data_found">No data found with this type of parameters</string>
 
     <!-- Alert Dialog messages -->
     <string name="api_key_error_title">API Key Error</string>
     <string name="api_key_error_msg">There\'s currently no API key configured or the configured key is wrong. To set an API key, please go to the settings and click on API key.</string>
     <string name="btn_ok">OK</string>
 
-    <string name="string_type_error_title">Wrong input</string>
-    <string name="string_type_error_msg">The input must be a text, e.g. "Earth"</string>
     <string name="double_type_error_title">Wrong input</string>
     <string name="double_type_error_msg">The input must be a number, e.g. 2.0</string>
 

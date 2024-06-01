@@ -1,8 +1,6 @@
 package com.burningstack.exoexplorer
 
 import android.app.Activity
-import android.content.Context
-import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.PreferenceManager
 import com.burningstack.exoexplorer.model.Planet
@@ -24,10 +22,20 @@ class APIConnector(activity: Activity) {
 
     fun getPlanets(value: String): ArrayList<Planet> {
         if (API_KEY.isEmpty()) {
+            showAPIKeyErrorDialog()
             return ArrayList()
         }
+        return buildRequest(value)
+    }
+
+    /**
+     * Builds the request for the specific search option
+     */
+    private fun buildRequest(value: String): ArrayList<Planet> {
         val searchOption = prefs.getString(act.getString(R.string.preferences_search_option_key), "")
-        if (convertSearchOption(searchOption!!) != "name") {
+        val param = convertSearchOption(searchOption!!)
+        // Check if input value is Double
+        if (param != "name") {
             try {
                 value.toDouble()
             } catch (e: ClassCastException) {
@@ -38,40 +46,15 @@ class APIConnector(activity: Activity) {
                 return ArrayList()
             }
         }
-        when(convertSearchOption(searchOption)) {
-            "name" -> return getPlanetsByName(value)
-            "min_mass" -> return getPlanetsByMass(value.toDouble())
-            "max_mass" -> return getPlanetsByMass(value.toDouble())
-            "min_radius" -> return getPlanetsByMass(value.toDouble())
-            "max_radius" -> return getPlanetsByMass(value.toDouble())
-            "min_period" -> return getPlanetsByMass(value.toDouble())
-            "max_period" -> return getPlanetsByMass(value.toDouble())
-            "min_temperature" -> return getPlanetsByMass(value.toDouble())
-            "max_temperature" -> return getPlanetsByMass(value.toDouble())
-            "min_distance" -> return getPlanetsByMass(value.toDouble())
-            "max_distance" -> return getPlanetsByMass(value.toDouble())
-            "min_semi_major_axis" -> return getPlanetsByMass(value.toDouble())
-            "max_semi_major_axis" -> return getPlanetsByMass(value.toDouble())
-            else -> return ArrayList()
-        }
-    }
-
-    fun getPlanetsByName(name: String): ArrayList<Planet> {
-        val params = "?name=$name"
-        val requestURL = baseURL + params
-        val result = createRequest(requestURL)
-        return formatResult(result)
-    }
-
-    fun getPlanetsByMass(value: Double): ArrayList<Planet> {
-        val searchOption = prefs.getString(act.getString(R.string.preferences_search_option_key), "")
-        val param = convertSearchOption(searchOption!!)
         val params = "?$param=$value"
         val requestURL = baseURL + params
         val result = createRequest(requestURL)
         return formatResult(result)
     }
 
+    /**
+     * Formats the input to Planet.kt
+     */
     private fun formatResult(result: JsonArray): ArrayList<Planet> {
         val resultList = ArrayList<Planet>()
         if (!result.isEmpty) {
@@ -104,6 +87,9 @@ class APIConnector(activity: Activity) {
         }
     }
 
+    /**
+     * Converts the saved search option to the correct request parameter
+     */
     private fun convertSearchOption(searchOption: String): String {
         return when (searchOption) {
             "Name" -> "name"
@@ -115,11 +101,11 @@ class APIConnector(activity: Activity) {
             "Max period" -> "max_period"
             "Min temperature" -> "min_temperature"
             "Max temperature" -> "max_temperature"
-            "Min distance light year" -> "min_distance"
-            "Max distance light year" -> "max_distance"
+            "Min distance light year" -> "min_distance_light_year"
+            "Max distance light year" -> "max_distance_light_year"
             "Min semi major axis" -> "min_semi_major_axis"
             "Max semi major axis" -> "max_semi_major_axis"
-            else -> ""
+            else -> "name"
         }
     }
 
@@ -142,19 +128,6 @@ class APIConnector(activity: Activity) {
             builder.setIcon(R.drawable.dialog_error)
             builder.setTitle(R.string.double_type_error_title)
             builder.setMessage(R.string.double_type_error_msg)
-                .setPositiveButton(R.string.btn_ok) { dialog, id ->
-                    // Do nothing
-                }
-            builder.show()
-        }
-    }
-
-    private fun showStringTypeErrorDialog() {
-        act.runOnUiThread {
-            val builder = AlertDialog.Builder(act)
-            builder.setIcon(R.drawable.dialog_error)
-            builder.setTitle(R.string.string_type_error_title)
-            builder.setMessage(R.string.string_type_error_msg)
                 .setPositiveButton(R.string.btn_ok) { dialog, id ->
                     // Do nothing
                 }

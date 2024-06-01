@@ -70,6 +70,7 @@ class PlanetListFragment : Fragment() {
                             linearLayout.addView(listItem)
                         }
                     } else {
+                        noDataTextField.text = getString(R.string.no_data_found)
                         noDataTextField.visibility = View.VISIBLE
                     }
                 }
