@@ -1,17 +1,18 @@
 package com.burningstack.exoexplorer
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.burningstack.exoexplorer.databinding.ActivityMainBinding
+import com.burningstack.exoexplorer.utils.FragmentTags
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var bottomNav: BottomNavigationView
     private val fragManager = supportFragmentManager
-    private var activeFragment: Fragment = PlanetListFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,50 +28,60 @@ class MainActivity : AppCompatActivity() {
         val profileFragment = ProfileFragment()
         val settingsFragment = SettingsFragment()
         fragManager.beginTransaction().apply {
-            add(R.id.fragment_container, planetListFragment)
-            add(R.id.fragment_container, profileFragment)
-            add(R.id.fragment_container, settingsFragment)
+            add(R.id.fragment_container, planetListFragment, FragmentTags.PLANET_LIST_FRAGMENT.value)
+            add(R.id.fragment_container, profileFragment, FragmentTags.PROFILE_FRAGMENT.value)
+            add(R.id.fragment_container, settingsFragment, FragmentTags.SETTINGS_FRAGMENT.value)
             hide(profileFragment)
             hide(settingsFragment)
-            activeFragment = planetListFragment
             commit()
         }
         // Check if API key is set
         if (apiKey.isNullOrEmpty()) {
             bottomNav.setSelectedItemId(R.id.nav_settings)
-            fragManager.beginTransaction().hide(activeFragment)
-                .show(settingsFragment).commit()
-            activeFragment = settingsFragment
+            showFragment(settingsFragment)
+
         } else {
             bottomNav.setSelectedItemId(R.id.nav_discover)
-            fragManager.beginTransaction().hide(activeFragment)
-                .show(planetListFragment).commit()
-            activeFragment = planetListFragment
+            showFragment(planetListFragment)
         }
 
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_discover -> {
-                    fragManager.beginTransaction().hide(activeFragment)
-                        .show(planetListFragment).commit()
-                    activeFragment = planetListFragment
+                    showFragment(planetListFragment)
                     true
                 }
                 R.id.nav_profile -> {
-                    fragManager.beginTransaction().hide(activeFragment)
-                        .show(profileFragment).commit()
-                    activeFragment = profileFragment
+                    showFragment(profileFragment)
                     true
                 }
                 R.id.nav_settings -> {
-                    fragManager.beginTransaction().hide(activeFragment)
-                        .show(settingsFragment).commit()
-                    activeFragment = settingsFragment
+                    showFragment(settingsFragment)
                     true
                 }
                 else -> false
             }
         }
+    }
+
+    private fun showFragment(fragment: Fragment) {
+        val transaction = fragManager.beginTransaction()
+        val fragments = fragManager.fragments
+        for (frag in fragments) {
+            transaction.hide(frag)
+        }
+
+        if (fragment.tag.toString() == FragmentTags.PLANET_LIST_FRAGMENT.value) {
+            val detailsFrag = fragManager.findFragmentByTag(FragmentTags.PLANET_DETAILS_FRAGMENT.value)
+            if (detailsFrag != null) {
+                transaction.show(detailsFrag)
+            } else {
+                transaction.show(fragment)
+            }
+        } else {
+            transaction.show(fragment)
+        }
+        transaction.commit()
     }
 
 }

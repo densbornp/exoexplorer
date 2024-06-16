@@ -1,5 +1,6 @@
 package com.burningstack.exoexplorer.views
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.widget.TextView
@@ -7,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.burningstack.exoexplorer.R
 import com.burningstack.exoexplorer.model.Planet
 
+@SuppressLint("ViewConstructor")
 class PlanetListItem(context: Context, planet: Planet): ConstraintLayout(context) {
     init {
         // Inflate the view

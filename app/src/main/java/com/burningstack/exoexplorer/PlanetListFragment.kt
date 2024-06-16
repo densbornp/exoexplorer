@@ -9,8 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.ListView
 import android.widget.SearchView
 import android.widget.TextView
+import androidx.core.view.get
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.replace
+import com.burningstack.exoexplorer.utils.FragmentTags
 import com.burningstack.exoexplorer.views.PlanetListItem
 import org.w3c.dom.Text
 import java.util.concurrent.Executors
@@ -22,6 +27,7 @@ class PlanetListFragment : Fragment() {
     private lateinit var searchView: SearchView
     private lateinit var noDataTextField: TextView
     private lateinit var context: Context
+    private lateinit var fragManager: FragmentManager
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -37,6 +43,7 @@ class PlanetListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fragManager = parentFragmentManager
         noDataTextField = view.findViewById(R.id.tv_no_data)
         searchView = view.findViewById(R.id.searchView)
         searchView.isIconified = false
@@ -67,6 +74,18 @@ class PlanetListFragment : Fragment() {
                         noDataTextField.visibility = View.GONE
                         for (planet in result) {
                             val listItem = PlanetListItem(requireContext(), planet)
+                            // Set list item onClickListener
+                            listItem.setOnClickListener {
+                                val activeFragment = getActiveFragment()
+                                val planetDetailsFragment = PlanetDetailsFragment(listItem)
+                                if (activeFragment != null) {
+                                    fragManager.beginTransaction().hide(activeFragment)
+                                        .add(R.id.fragment_container, planetDetailsFragment, FragmentTags.PLANET_DETAILS_FRAGMENT.value)
+                                        .show(planetDetailsFragment)
+                                        .commit()
+                                }
+
+                            }
                             linearLayout.addView(listItem)
                         }
                     } else {
@@ -76,5 +95,15 @@ class PlanetListFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun getActiveFragment(): Fragment? {
+        val fragments = fragManager.fragments
+        for (fragment in fragments) {
+            if (fragment != null && fragment.isVisible) {
+                return fragment
+            }
+        }
+        return null
     }
 }
