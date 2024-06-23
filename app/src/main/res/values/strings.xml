@@ -42,4 +42,13 @@
         <item>Min semi major axis</item>
         <item>Max semi major axis</item>
     </array>
+    <!-- Planet details -->
+    <string name="mass">Mass (in Jupiters)</string>
+    <string name="radius">Radius (in Jupiters)</string>
+    <string name="period">Orbital period of the planet (in Earth days)</string>
+    <string name="temperature">Avg. temperature (in Kelvin)</string>
+    <string name="semi_major_axis">Semi major axis (in AU)</string>
+    <string name="hot_star_mass">Hot star mass</string>
+    <string name="hot_star_temperature">Hot star mass temperature (in Kelvin)</string>
+    <string name="distance_in_light_years">Distance in light years from earth</string>
 </resources>

@@ -77,7 +77,7 @@ class PlanetListFragment : Fragment() {
                             // Set list item onClickListener
                             listItem.setOnClickListener {
                                 val activeFragment = getActiveFragment()
-                                val planetDetailsFragment = PlanetDetailsFragment(listItem)
+                                val planetDetailsFragment = PlanetDetailsFragment(planet)
                                 if (activeFragment != null) {
                                     fragManager.beginTransaction().hide(activeFragment)
                                         .add(R.id.fragment_container, planetDetailsFragment, FragmentTags.PLANET_DETAILS_FRAGMENT.value)

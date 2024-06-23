@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Avg. temperature (Kelvin)"
+                android:text="@string/temperature"
                 android:textSize="10sp"
                 app:layout_constraintStart_toStartOf="@+id/img_temperature"
                 app:layout_constraintTop_toBottomOf="@+id/img_temperature" />
@@ -91,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Mass (in Jupiters)"
+                android:text="@string/mass"
                 android:textSize="10sp"
                 app:layout_constraintStart_toStartOf="@+id/img_mass"
                 app:layout_constraintTop_toBottomOf="@+id/img_mass" />
@@ -132,7 +132,7 @@
                 android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Distance in light years from earth"
+                android:text="@string/distance_in_light_years"
                 android:textSize="10sp"
                 app:layout_constraintStart_toStartOf="@+id/img_distance"
                 app:layout_constraintTop_toBottomOf="@+id/img_distance" />
@@ -142,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Radius (in Jupiters)"
+                android:text="@string/radius"
                 android:textSize="10sp"
                 app:layout_constraintStart_toStartOf="@+id/img_radius"
                 app:layout_constraintTop_toBottomOf="@+id/img_radius" />
