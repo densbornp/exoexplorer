@@ -4,21 +4,20 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.ListView
 import android.widget.SearchView
 import android.widget.TextView
-import androidx.core.view.get
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.replace
 import com.burningstack.exoexplorer.utils.FragmentTags
 import com.burningstack.exoexplorer.views.PlanetListItem
-import org.w3c.dom.Text
 import java.util.concurrent.Executors
+
 
 class PlanetListFragment : Fragment() {
 
@@ -46,8 +45,8 @@ class PlanetListFragment : Fragment() {
         fragManager = parentFragmentManager
         noDataTextField = view.findViewById(R.id.tv_no_data)
         searchView = view.findViewById(R.id.searchView)
-        searchView.isIconified = false
         searchView.clearFocus()
+        val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_button)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchPlanets(view, query.toString())

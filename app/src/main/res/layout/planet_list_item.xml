@@ -11,12 +11,12 @@
         android:id="@+id/list_item_entry"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:cardCornerRadius="10dp"
-        app:cardElevation="5dp"
+        app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,20 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/list_item_background">
+
+            <ImageView
+                android:id="@+id/backgroundAlpha"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha="0.3"
+                android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
 
             <ImageView
                 android:id="@+id/img_distance"
@@ -52,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:text="1"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/img_temperature"
                 app:layout_constraintStart_toEndOf="@+id/img_temperature"
                 app:layout_constraintTop_toTopOf="@+id/img_temperature" />
@@ -62,7 +76,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/temperature"
-                android:textSize="10sp"
+                android:textColor="@color/white"
+                android:textSize="11sp"
                 app:layout_constraintStart_toStartOf="@+id/img_temperature"
                 app:layout_constraintTop_toBottomOf="@+id/img_temperature" />
 
@@ -82,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:text="1"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/img_mass"
                 app:layout_constraintStart_toEndOf="@+id/img_mass"
                 app:layout_constraintTop_toTopOf="@+id/img_mass" />
@@ -92,7 +108,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/mass"
-                android:textSize="10sp"
+                android:textColor="@color/white"
+                android:textSize="11sp"
                 app:layout_constraintStart_toStartOf="@+id/img_mass"
                 app:layout_constraintTop_toBottomOf="@+id/img_mass" />
 
@@ -102,6 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="125dp"
                 android:layout_marginTop="50dp"
+                android:textColor="@color/white"
                 app:layout_constraintStart_toEndOf="@+id/mass"
                 app:layout_constraintTop_toBottomOf="@+id/img_temperature"
                 app:srcCompat="@drawable/radius" />
@@ -112,6 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:text="1"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/img_distance"
                 app:layout_constraintStart_toEndOf="@+id/img_distance"
                 app:layout_constraintTop_toTopOf="@+id/img_distance" />
@@ -122,6 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:text="1"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/img_radius"
                 app:layout_constraintStart_toEndOf="@+id/img_radius"
                 app:layout_constraintTop_toTopOf="@+id/img_radius"
@@ -133,7 +153,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/distance_in_light_years"
-                android:textSize="10sp"
+                android:textColor="@color/white"
+                android:textSize="11sp"
                 app:layout_constraintStart_toStartOf="@+id/img_distance"
                 app:layout_constraintTop_toBottomOf="@+id/img_distance" />
 
@@ -143,7 +164,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/radius"
-                android:textSize="10sp"
+                android:textColor="@color/white"
+                android:textSize="11sp"
                 app:layout_constraintStart_toStartOf="@+id/img_radius"
                 app:layout_constraintTop_toBottomOf="@+id/img_radius" />
 
@@ -151,13 +173,14 @@
                 android:id="@+id/planetName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.100000024" />
+                app:layout_constraintVertical_bias="0.100000024"
+                tools:text="TextView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

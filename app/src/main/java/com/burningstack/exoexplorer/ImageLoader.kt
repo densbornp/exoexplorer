@@ -23,8 +23,21 @@ class ImageLoader(private val activity: Activity, private val imageView: ImageVi
     private val handler = Handler(Looper.getMainLooper())
 
     init {
-        val requestURL = "$baseURL&titles=$planetName"
+        val name = validateAndFormatName(planetName)
+        val requestURL = "$baseURL&titles=$name"
         createInfoRequest(requestURL)
+    }
+
+    /*
+        This function is used to format some planet names,
+        so that they can be found on Wikipedia
+     */
+    private fun validateAndFormatName(name: String): String {
+        val oldName = name.lowercase()
+        if (oldName == "mercury") {
+            return "Mercury_(planet)"
+        }
+        return name
     }
 
     private fun getThumbnailURL(value: JsonObject): String {
