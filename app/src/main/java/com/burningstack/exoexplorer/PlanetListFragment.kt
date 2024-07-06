@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -25,6 +26,7 @@ class PlanetListFragment : Fragment() {
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var searchView: SearchView
     private lateinit var noDataTextField: TextView
+    private lateinit var progressBar: ProgressBar
     private lateinit var context: Context
     private lateinit var fragManager: FragmentManager
 
@@ -45,8 +47,9 @@ class PlanetListFragment : Fragment() {
         fragManager = parentFragmentManager
         noDataTextField = view.findViewById(R.id.tv_no_data)
         searchView = view.findViewById(R.id.searchView)
+        searchView.isIconified = false
+        searchView.queryHint = getString(R.string.search_view_hint)
         searchView.clearFocus()
-        val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_button)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchPlanets(view, query.toString())
@@ -58,18 +61,25 @@ class PlanetListFragment : Fragment() {
                 return false
             }
         })
+        progressBar = view.findViewById(R.id.progressBar)
+        progressBar.visibility = View.GONE
     }
 
     private fun searchPlanets(view: View, query: String) {
         if (query.isNotEmpty()) {
             val apiConnector = APIConnector(requireActivity())
+            val linearLayout = view.findViewById<LinearLayout>(R.id.planet_list)
             executor.execute {
+                handler.post {
+                    linearLayout.removeAllViews()
+                    noDataTextField.visibility = View.GONE
+                    progressBar.visibility = View.VISIBLE
+                }
                 val result = apiConnector.getPlanets(query)
 
                 handler.post {
-                    val linearLayout = view.findViewById<LinearLayout>(R.id.planet_list)
-                    linearLayout.removeAllViews()
                     if (result.isNotEmpty()) {
+                        progressBar.visibility = View.GONE
                         noDataTextField.visibility = View.GONE
                         for (planet in result) {
                             val listItem = PlanetListItem(requireContext(), planet)
@@ -88,6 +98,7 @@ class PlanetListFragment : Fragment() {
                             linearLayout.addView(listItem)
                         }
                     } else {
+                        progressBar.visibility = View.GONE
                         noDataTextField.text = getString(R.string.no_data_found)
                         noDataTextField.visibility = View.VISIBLE
                     }

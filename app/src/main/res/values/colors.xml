@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- https://colorhunt.co/palette/2d32504247697077a1f6b17a -->
-    <color name="dark">#2D3250</color>
-    <color name="light_dark">#424769</color>
-    <color name="normal">#7077A1</color>
-    <color name="light">#F6B17A</color>
-
+    <color name="dark">#272B3A</color>
+    <color name="orange">#FC7637</color>
+    <color name="light_orange">#FB8231</color>
+    <color name="bright">#FCD57F</color>
+    <color name="red">#E3373D</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

@@ -1,6 +1,7 @@
 package com.burningstack.exoexplorer
 
 import android.app.Activity
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.PreferenceManager
 import com.burningstack.exoexplorer.model.Planet
@@ -76,7 +77,8 @@ class APIConnector(activity: Activity) {
         try {
             response = client.newCall(request).execute()
         } catch (e: Exception) {
-            throw Exception("Error while executing request: $e")
+            Log.e("APIConnector Error","Error while executing request: $e")
+            return JsonArray()
         }
 
         response.use { response ->

@@ -12,13 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/list_detail_background" />
+        app:srcCompat="@drawable/list_item_background" />
 
     <ImageView
         android:id="@+id/backgroundAlphaDetails"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.3"
+        android:alpha="0.4"
         android:background="@color/black" />
 
     <com.google.android.material.appbar.AppBarLayout
@@ -48,7 +48,8 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:alpha="0.5"></androidx.appcompat.widget.Toolbar>
+                android:alpha="0.3"
+                android:background="@color/white"></androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -79,221 +80,222 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/label_distance"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/avenir_bold"
-                    android:text="@string/distance_in_light_years"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/planet_distance"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/avenir_it"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/label_distance"
-                    app:layout_constraintStart_toEndOf="@+id/label_distance"
-                    app:layout_constraintTop_toTopOf="@+id/label_distance"
-                    tools:text="TextView" />
-
-                <TextView
-                    android:id="@+id/label_temperature"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/avenir_bold"
-                    android:text="@string/temperature"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/label_distance" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/planet_temperature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/avenir_it"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/label_temperature"
-                    app:layout_constraintStart_toEndOf="@+id/label_temperature"
-                    app:layout_constraintTop_toTopOf="@+id/label_temperature"
-                    tools:text="TextView" />
+                    <TextView
+                        android:id="@+id/label_distance"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/avenir_bold"
+                        android:text="@string/distance_in_light_years"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/label_mass"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/avenir_bold"
-                    android:text="@string/mass"
-                    android:textSize="16sp"
-                    android:textColor="@color/white"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/label_temperature"
-                    tools:layout_conversion_absoluteHeight="22dp"
-                    tools:layout_conversion_absoluteWidth="134dp" />
+                    <TextView
+                        android:id="@+id/planet_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/avenir_it"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/label_distance"
+                        app:layout_constraintStart_toEndOf="@+id/label_distance"
+                        app:layout_constraintTop_toTopOf="@+id/label_distance"
+                        tools:text="TextView" />
 
-                <TextView
-                    android:id="@+id/planet_mass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="48dp"
-                    android:fontFamily="@font/avenir_it"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/label_mass"
-                    app:layout_constraintStart_toEndOf="@+id/label_mass"
-                    app:layout_constraintTop_toTopOf="@+id/label_mass"
-                    app:layout_constraintVertical_bias="0.204"
-                    tools:layout_conversion_absoluteHeight="19dp"
-                    tools:layout_conversion_absoluteWidth="61dp"
-                    tools:text="TextView" />
+                    <TextView
+                        android:id="@+id/label_temperature"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/avenir_bold"
+                        android:text="@string/temperature"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/label_distance" />
 
-                <TextView
-                    android:id="@+id/label_radius"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/avenir_bold"
-                    android:text="@string/radius"
-                    android:textSize="16sp"
-                    android:textColor="@color/white"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/label_mass"
-                    tools:layout_conversion_absoluteHeight="22dp"
-                    tools:layout_conversion_absoluteWidth="145dp" />
+                    <TextView
+                        android:id="@+id/planet_temperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/avenir_it"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/label_temperature"
+                        app:layout_constraintStart_toEndOf="@+id/label_temperature"
+                        app:layout_constraintTop_toTopOf="@+id/label_temperature"
+                        tools:text="TextView" />
 
-                <TextView
-                    android:id="@+id/planet_radius"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:fontFamily="@font/avenir_it"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/label_radius"
-                    app:layout_constraintStart_toEndOf="@+id/label_radius"
-                    app:layout_constraintTop_toTopOf="@+id/label_radius"
-                    tools:layout_conversion_absoluteHeight="19dp"
-                    tools:layout_conversion_absoluteWidth="61dp"
-                    tools:text="TextView" />
+                    <TextView
+                        android:id="@+id/label_mass"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/avenir_bold"
+                        android:text="@string/mass"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/label_temperature"
+                        tools:layout_conversion_absoluteHeight="22dp"
+                        tools:layout_conversion_absoluteWidth="134dp" />
 
-                <TextView
-                    android:id="@+id/label_semi_major_axis"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/avenir_bold"
-                    android:text="@string/semi_major_axis"
-                    android:textSize="16sp"
-                    android:textColor="@color/white"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/label_radius" />
+                    <TextView
+                        android:id="@+id/planet_mass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="48dp"
+                        android:fontFamily="@font/avenir_it"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/label_mass"
+                        app:layout_constraintStart_toEndOf="@+id/label_mass"
+                        app:layout_constraintTop_toTopOf="@+id/label_mass"
+                        app:layout_constraintVertical_bias="0.204"
+                        tools:layout_conversion_absoluteHeight="19dp"
+                        tools:layout_conversion_absoluteWidth="61dp"
+                        tools:text="TextView" />
 
-                <TextView
-                    android:id="@+id/planet_semi_major_axis"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:fontFamily="@font/avenir_it"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/label_semi_major_axis"
-                    app:layout_constraintStart_toEndOf="@+id/label_semi_major_axis"
-                    app:layout_constraintTop_toTopOf="@+id/label_semi_major_axis"
-                    tools:text="TextView" />
+                    <TextView
+                        android:id="@+id/label_radius"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/avenir_bold"
+                        android:text="@string/radius"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/label_mass"
+                        tools:layout_conversion_absoluteHeight="22dp"
+                        tools:layout_conversion_absoluteWidth="145dp" />
 
-                <TextView
-                    android:id="@+id/label_period"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/avenir_bold"
-                    android:text="@string/period"
-                    android:textSize="16sp"
-                    android:textColor="@color/white"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/label_semi_major_axis" />
+                    <TextView
+                        android:id="@+id/planet_radius"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:fontFamily="@font/avenir_it"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/label_radius"
+                        app:layout_constraintStart_toEndOf="@+id/label_radius"
+                        app:layout_constraintTop_toTopOf="@+id/label_radius"
+                        tools:layout_conversion_absoluteHeight="19dp"
+                        tools:layout_conversion_absoluteWidth="61dp"
+                        tools:text="TextView" />
 
-                <TextView
-                    android:id="@+id/planet_period"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:fontFamily="@font/avenir_it"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/label_period"
-                    app:layout_constraintStart_toEndOf="@+id/label_period"
-                    app:layout_constraintTop_toTopOf="@+id/label_period"
-                    tools:text="TextView" />
+                    <TextView
+                        android:id="@+id/label_semi_major_axis"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/avenir_bold"
+                        android:text="@string/semi_major_axis"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/label_radius" />
 
-                <TextView
-                    android:id="@+id/label_hot_star_mass"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/avenir_bold"
-                    android:text="@string/hot_star_mass"
-                    android:textSize="16sp"
-                    android:textColor="@color/white"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/label_period" />
+                    <TextView
+                        android:id="@+id/planet_semi_major_axis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:fontFamily="@font/avenir_it"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/label_semi_major_axis"
+                        app:layout_constraintStart_toEndOf="@+id/label_semi_major_axis"
+                        app:layout_constraintTop_toTopOf="@+id/label_semi_major_axis"
+                        tools:text="TextView" />
 
-                <TextView
-                    android:id="@+id/planet_hot_star_mass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:fontFamily="@font/avenir_it"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/label_hot_star_mass"
-                    app:layout_constraintStart_toEndOf="@+id/label_hot_star_mass"
-                    app:layout_constraintTop_toTopOf="@+id/label_hot_star_mass"
-                    tools:text="TextView" />
+                    <TextView
+                        android:id="@+id/label_period"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/avenir_bold"
+                        android:text="@string/period"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/label_semi_major_axis" />
 
-                <TextView
-                    android:id="@+id/label_hot_star_temperature"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/avenir_bold"
-                    android:text="@string/hot_star_temperature"
-                    android:textSize="16sp"
-                    android:textColor="@color/white"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/label_hot_star_mass" />
+                    <TextView
+                        android:id="@+id/planet_period"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:fontFamily="@font/avenir_it"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/label_period"
+                        app:layout_constraintStart_toEndOf="@+id/label_period"
+                        app:layout_constraintTop_toTopOf="@+id/label_period"
+                        tools:text="TextView" />
 
-                <TextView
-                    android:id="@+id/planet_hot_star_temperature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:fontFamily="@font/avenir_it"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/label_hot_star_temperature"
-                    app:layout_constraintStart_toEndOf="@+id/label_hot_star_temperature"
-                    app:layout_constraintTop_toTopOf="@+id/label_hot_star_temperature"
-                    tools:text="TextView" />
+                    <TextView
+                        android:id="@+id/label_hot_star_mass"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/avenir_bold"
+                        android:text="@string/hot_star_mass"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/label_period" />
+
+                    <TextView
+                        android:id="@+id/planet_hot_star_mass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:fontFamily="@font/avenir_it"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/label_hot_star_mass"
+                        app:layout_constraintStart_toEndOf="@+id/label_hot_star_mass"
+                        app:layout_constraintTop_toTopOf="@+id/label_hot_star_mass"
+                        tools:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/label_hot_star_temperature"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/avenir_bold"
+                        android:text="@string/hot_star_temperature"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/label_hot_star_mass" />
+
+                    <TextView
+                        android:id="@+id/planet_hot_star_temperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:fontFamily="@font/avenir_it"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/label_hot_star_temperature"
+                        app:layout_constraintStart_toEndOf="@+id/label_hot_star_temperature"
+                        app:layout_constraintTop_toTopOf="@+id/label_hot_star_temperature"
+                        tools:text="TextView" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
