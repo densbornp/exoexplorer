@@ -34,18 +34,10 @@ class MainActivity : AppCompatActivity() {
             add(R.id.fragment_container, planetListFragment, FragmentTags.PLANET_LIST_FRAGMENT.value)
             add(R.id.fragment_container, profileFragment, FragmentTags.PROFILE_FRAGMENT.value)
             add(R.id.fragment_container, settingsFragment, FragmentTags.SETTINGS_FRAGMENT.value)
+            hide(planetListFragment)
             hide(profileFragment)
             hide(settingsFragment)
             commit()
-        }
-        // Check if API key is set
-        if (apiKey.isNullOrEmpty()) {
-            bottomNav.setSelectedItemId(R.id.nav_settings)
-            showFragment(settingsFragment)
-
-        } else {
-            bottomNav.setSelectedItemId(R.id.nav_discover)
-            showFragment(planetListFragment)
         }
 
         bottomNav.setOnItemSelectedListener {
@@ -64,6 +56,13 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+        }
+
+        // Check if API key is set
+        if (apiKey.isNullOrEmpty()) {
+            bottomNav.setSelectedItemId(R.id.nav_settings)
+        } else {
+            showFragment(planetListFragment)
         }
     }
 
