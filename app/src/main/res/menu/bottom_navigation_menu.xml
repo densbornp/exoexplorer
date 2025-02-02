@@ -6,10 +6,10 @@
         android:icon="@drawable/nav_discover"
         android:title="@string/nav_discover"/>
     <item
-        android:id="@+id/nav_profile"
+        android:id="@+id/nav_favs"
         android:enabled="true"
-        android:icon="@drawable/nav_user"
-        android:title="@string/nav_profile"/>
+        android:icon="@drawable/nav_favorite"
+        android:title="@string/nav_favorites" />
     <item
         android:id="@+id/nav_settings"
         android:enabled="true"

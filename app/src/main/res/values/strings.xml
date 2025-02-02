@@ -1,13 +1,15 @@
 <resources>
     <string name="app_name">ExoExplorer</string>
     <string name="nav_discover">Discover</string>
-    <string name="nav_profile">Profile</string>
+    <string name="nav_favorites">Favorites</string>
     <string name="nav_settings">Settings</string>
 
     <!-- PlanetListFragment -->
     <string name="no_data">No data</string>
     <string name="no_data_found">No data found with this type of parameters</string>
+    <string name="no_favs_found">No favorites found with this name</string>
     <string name="search_view_hint">Search for planets</string>
+    <string name="search_view_favs_hint">Search for your favorites</string>
 
     <!-- Alert Dialog messages -->
     <string name="api_key_error_title">API Key Error</string>

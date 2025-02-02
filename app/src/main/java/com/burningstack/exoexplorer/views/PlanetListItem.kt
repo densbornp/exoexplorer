@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.burningstack.exoexplorer.R
-import com.burningstack.exoexplorer.db.AppDatabase
 import com.burningstack.exoexplorer.db.AppDatabaseSingleton
 import com.burningstack.exoexplorer.model.Planet
 import kotlinx.coroutines.CoroutineScope
@@ -52,6 +51,7 @@ class PlanetListItem(context: Context, planet: Planet): ConstraintLayout(context
     }
 
     private fun toggleFavorite(image: ImageView, planet: Planet) {
+        // TODO click on fav icon should directly update the view
         CoroutineScope(Dispatchers.IO).launch {
             val database = AppDatabaseSingleton.getInstance(context)
             val favoriteDao = database.favoritePlanetDao()

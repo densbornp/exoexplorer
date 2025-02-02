@@ -7,20 +7,25 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.SearchView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.burningstack.exoexplorer.db.AppDatabaseSingleton
+import com.burningstack.exoexplorer.model.Planet
 import com.burningstack.exoexplorer.utils.FragmentTags
 import com.burningstack.exoexplorer.views.PlanetListItem
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.concurrent.Executors
 
 
-class PlanetListFragment : Fragment() {
+class PlanetListFragment() : Fragment() {
 
     private val executor = Executors.newSingleThreadExecutor()
     private val handler = Handler(Looper.getMainLooper())
@@ -29,6 +34,8 @@ class PlanetListFragment : Fragment() {
     private lateinit var progressBar: ProgressBar
     private lateinit var context: Context
     private lateinit var fragManager: FragmentManager
+    private var isFavoriteView: Boolean = false
+    private var queryTextChangedJob: Job? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,67 +51,151 @@ class PlanetListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fragManager = parentFragmentManager
+        isFavoriteView = arguments?.getBoolean("isFavoriteView") ?: false
+        fragManager = childFragmentManager
         noDataTextField = view.findViewById(R.id.tv_no_data)
         searchView = view.findViewById(R.id.searchView)
         searchView.isIconified = false
-        searchView.queryHint = getString(R.string.search_view_hint)
+        if (isFavoriteView) {
+            searchView.queryHint = getString(R.string.search_view_favs_hint)
+        } else {
+            searchView.queryHint = getString(R.string.search_view_hint)
+        }
         searchView.clearFocus()
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                searchPlanets(view, query.toString())
-                searchView.clearFocus()
+                if (isFavoriteView) {
+                    searchView.clearFocus()
+                } else {
+                    searchPlanets(view, query.toString())
+                    searchView.clearFocus()
+                }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                if (isFavoriteView) {
+                    queryTextChangedJob?.cancel()
+                    queryTextChangedJob = CoroutineScope(Dispatchers.Main).launch {
+                        delay(250)
+                        searchPlanets(view, newText.toString())
+                    }
+                }
                 return false
             }
         })
         progressBar = view.findViewById(R.id.progressBar)
         progressBar.visibility = View.GONE
+
+        if(isFavoriteView) {
+            loadFavorites(view)
+        }
     }
 
     private fun searchPlanets(view: View, query: String) {
-        if (query.isNotEmpty()) {
-            val apiConnector = APIConnector(requireActivity())
-            val linearLayout = view.findViewById<LinearLayout>(R.id.planet_list)
-            executor.execute {
-                handler.post {
-                    linearLayout.removeAllViews()
-                    noDataTextField.visibility = View.GONE
-                    progressBar.visibility = View.VISIBLE
-                }
-                val result = apiConnector.getPlanets(query)
+        val apiConnector = APIConnector(requireActivity())
+        val linearLayout = view.findViewById<LinearLayout>(R.id.planet_list)
+        executor.execute {
+            handler.post {
+                linearLayout.removeAllViews()
+                noDataTextField.visibility = View.GONE
+                progressBar.visibility = View.VISIBLE
+            }
 
-                handler.post {
-                    if (result.isNotEmpty()) {
-                        progressBar.visibility = View.GONE
-                        noDataTextField.visibility = View.GONE
-                        for (planet in result) {
-                            val listItem = PlanetListItem(requireContext(), planet)
-                            // Set list item onClickListener
-                            listItem.setOnClickListener {
-                                val activeFragment = getActiveFragment()
-                                val planetDetailsFragment = PlanetDetailsFragment(planet)
-                                if (activeFragment != null) {
-                                    fragManager.beginTransaction().hide(activeFragment)
-                                        .add(R.id.fragment_container, planetDetailsFragment, FragmentTags.PLANET_DETAILS_FRAGMENT.value)
-                                        .show(planetDetailsFragment)
-                                        .commit()
-                                }
-
-                            }
-                            linearLayout.addView(listItem)
-                        }
+            var result = ArrayList<Planet>()
+            if (isFavoriteView) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val database = AppDatabaseSingleton.getInstance(context)
+                    val favoriteDao = database.favoritePlanetDao()
+                    result = if (query.isNotEmpty()) {
+                        favoriteDao.getFavorites(query) as ArrayList<Planet>
                     } else {
-                        progressBar.visibility = View.GONE
-                        noDataTextField.text = getString(R.string.no_data_found)
-                        noDataTextField.visibility = View.VISIBLE
+                        favoriteDao.getFavorites() as ArrayList<Planet>
                     }
+                }
+            } else {
+                if (query.isNotEmpty()) {
+                    result = apiConnector.getPlanets(query)
+                }
+            }
+
+            handler.post {
+                if (result.isNotEmpty()) {
+                    progressBar.visibility = View.GONE
+                    noDataTextField.visibility = View.GONE
+                    for (planet in result) {
+                        val listItem = PlanetListItem(requireContext(), planet)
+                        // Set list item onClickListener
+                        listItem.setOnClickListener {
+                            val planetDetailsFragment = PlanetDetailsFragment(planet)
+                            fragManager.beginTransaction()
+                                .add(R.id.fragment_planet_list, planetDetailsFragment, FragmentTags.PLANET_DETAILS_FRAGMENT.value)
+                                .show(planetDetailsFragment)
+                                .commit()
+                        }
+                        linearLayout.addView(listItem)
+                    }
+                } else {
+                    progressBar.visibility = View.GONE
+                    if (isFavoriteView) {
+                        noDataTextField.text = getString(R.string.no_favs_found)
+                    } else {
+                        noDataTextField.text = getString(R.string.no_data_found)
+                    }
+                    noDataTextField.visibility = View.VISIBLE
                 }
             }
         }
+    }
+
+    private fun loadFavorites(view: View) {
+        val linearLayout = view.findViewById<LinearLayout>(R.id.planet_list)
+        executor.execute {
+            handler.post {
+                linearLayout.removeAllViews()
+                noDataTextField.visibility = View.GONE
+                progressBar.visibility = View.VISIBLE
+            }
+
+            var result = ArrayList<Planet>()
+            CoroutineScope(Dispatchers.IO).launch {
+                val database = AppDatabaseSingleton.getInstance(context)
+                val favoriteDao = database.favoritePlanetDao()
+                result = favoriteDao.getFavorites() as ArrayList<Planet>
+            }
+
+            handler.post {
+                if (result.isNotEmpty()) {
+                    progressBar.visibility = View.GONE
+                    noDataTextField.visibility = View.GONE
+                    for (planet in result) {
+                        val listItem = PlanetListItem(requireContext(), planet)
+                        // Set list item onClickListener
+                        listItem.setOnClickListener {
+                            val planetDetailsFragment = PlanetDetailsFragment(planet)
+                            fragManager.beginTransaction()
+                                .add(R.id.fragment_planet_list, planetDetailsFragment, FragmentTags.PLANET_DETAILS_FRAGMENT.value)
+                                .show(planetDetailsFragment)
+                                .commit()
+
+                        }
+                        linearLayout.addView(listItem)
+                    }
+                } else {
+                    progressBar.visibility = View.GONE
+                    if (isFavoriteView) {
+                        noDataTextField.text = getString(R.string.no_favs_found)
+                    } else {
+                        noDataTextField.text = getString(R.string.no_data_found)
+                    }
+                    noDataTextField.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
+    fun updateFavoritesView() {
+        view?.let { loadFavorites(it) }
     }
 
     private fun getActiveFragment(): Fragment? {

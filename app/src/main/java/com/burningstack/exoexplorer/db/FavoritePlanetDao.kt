@@ -18,6 +18,9 @@ interface FavoritePlanetDao {
     @Query("SELECT * FROM favorites")
     suspend fun getFavorites(): List<Planet>
 
+    @Query("SELECT * FROM favorites WHERE name LIKE '%' || :planetId || '%'")
+    suspend fun getFavorites(planetId: String): List<Planet>
+
     @Query("SELECT EXISTS(SELECT 1 FROM favorites WHERE name=:planetId)")
     suspend fun isFavorite(planetId: String): Boolean
 }

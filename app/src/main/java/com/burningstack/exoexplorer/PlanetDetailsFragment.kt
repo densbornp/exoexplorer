@@ -29,8 +29,7 @@ class PlanetDetailsFragment(val planet: Planet) : Fragment() {
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
         toolbar.setNavigationIcon(R.drawable.arrow_back)
         toolbar.setNavigationOnClickListener {
-            val frag = parentFragmentManager.findFragmentByTag(FragmentTags.PLANET_LIST_FRAGMENT.value)
-            parentFragmentManager.beginTransaction().remove(this).show(frag!!).commit()
+            parentFragmentManager.beginTransaction().remove(this).commit()
         }
         val planetName = view.findViewById<TextView>(R.id.planet_name)
         planetName.text = planet.name

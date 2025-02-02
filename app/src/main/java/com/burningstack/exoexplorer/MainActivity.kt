@@ -1,7 +1,6 @@
 package com.burningstack.exoexplorer
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
@@ -28,14 +27,14 @@ class MainActivity : AppCompatActivity() {
 
         bottomNav = findViewById(R.id.btmNavMenu)
         val planetListFragment = PlanetListFragment()
-        val profileFragment = ProfileFragment()
+        val favoritesFragment = FavoritesFragment()
         val settingsFragment = SettingsFragment()
         fragManager.beginTransaction().apply {
             add(R.id.fragment_container, planetListFragment, FragmentTags.PLANET_LIST_FRAGMENT.value)
-            add(R.id.fragment_container, profileFragment, FragmentTags.PROFILE_FRAGMENT.value)
+            add(R.id.fragment_container, favoritesFragment, FragmentTags.FAVORITES_FRAGMENT.value)
             add(R.id.fragment_container, settingsFragment, FragmentTags.SETTINGS_FRAGMENT.value)
             hide(planetListFragment)
-            hide(profileFragment)
+            hide(favoritesFragment)
             hide(settingsFragment)
             commit()
         }
@@ -46,8 +45,8 @@ class MainActivity : AppCompatActivity() {
                     showFragment(planetListFragment)
                     true
                 }
-                R.id.nav_profile -> {
-                    showFragment(profileFragment)
+                R.id.nav_favs -> {
+                    showFragment(favoritesFragment)
                     true
                 }
                 R.id.nav_settings -> {
